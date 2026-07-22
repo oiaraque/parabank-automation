@@ -35,7 +35,7 @@ export default defineConfig({
     {
       name: 'api',
       testDir: './tests/api',
-      use: { baseURL: `${BASE_URL}/services/bank` },
+      use: { baseURL: `${BASE_URL}/services/bank/` },
     },
   ],
   outputDir: './test-results',
