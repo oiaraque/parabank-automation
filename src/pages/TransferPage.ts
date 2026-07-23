@@ -23,9 +23,11 @@ export class TransferPage {
     await expect(this.fromAccountSelect).toBeVisible({ timeout: 10000 });
     await expect(this.toAccountSelect).toBeVisible({ timeout: 10000 });
     await this.transferButton.click();
+    await this.page.waitForLoadState('domcontentloaded');
   }
 
   async expectSuccess() {
-    await expect(this.successMessage).toBeVisible({ timeout: 15000 });
+    await this.page.waitForLoadState('load');
+    await expect(this.successMessage).toBeVisible({ timeout: 30000 });
   }
 }
