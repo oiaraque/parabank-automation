@@ -28,6 +28,6 @@ export class TransferPage {
 
   async expectSuccess() {
     await this.page.waitForLoadState('load');
-    await expect(this.successMessage).toBeVisible({ timeout: 30000 });
+    await expect(this.page.locator('h1.title')).toHaveText('Transfer Complete!', { timeout: 30000 });
   }
 }
