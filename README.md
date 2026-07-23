@@ -45,7 +45,7 @@ npx playwright show-report
 Copy `.env.example` to `.env` and adjust:
 
 ```
-BASE_URL=https://parabank.parasoft.com/parabank
+BASE_URL=https://parabank.parasoft.com/parabank/
 TEST_USERNAME=john
 TEST_PASSWORD=demo
 ```
@@ -84,7 +84,7 @@ parabank-automation/
 
 **TypeScript** — type safety, IDE autocompletion, refactor-friendly, industry standard for modern QE.
 
-## Test Coverage (17 tests)
+## Test Coverage (20 tests)
 
 | # | Test | Type | Tag |
 |---|------|------|-----|
@@ -105,3 +105,5 @@ parabank-automation/
 | 15 | API transfer invalid account | API Negative | @negative |
 | 16 | API login invalid credentials | API Negative | @negative |
 | 17 | Data-driven login (4 datasets) | UI Data-Driven | @data-driven |
+
+> **Note:** TC-17 is parameterized with 4 datasets (valid credentials, invalid username, empty credentials, special characters), resulting in 4 individual test executions. Total: **20 tests**.

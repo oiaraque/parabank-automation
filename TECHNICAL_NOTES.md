@@ -4,9 +4,9 @@
 
 **POM + API Client separation.** UI tests use Page Objects; API tests use a typed `ParaBankApi` client. Both share the same data layer (`testData.ts`) but never cross concerns — a UI test doesn't call API methods, and vice versa. Trade-off: the chained API test (TC-10) is longer because it can't reuse UI shortcuts, but it validates the API contract independently of the UI.
 
-**Single data factory, no scattered hardcoding.** All test data lives in `src/data/testData.ts` — users, accounts, amounts, payees. Tests import what they need. `generateUniqueUser()` uses timestamps to avoid collisions in parallel runs. Trade-off: slightly more imports per test, but changing a test credential is a one-line fix instead of a grep across 17 files.
+**Single data factory, no scattered hardcoding.** All test data lives in `src/data/testData.ts` — users, accounts, amounts, payees. Tests import what they need. `generateUniqueUser()` uses timestamps to avoid collisions in parallel runs. Trade-off: slightly more imports per test, but changing a test credential is a one-line fix instead of a grep across 20 files.
 
-**Two Playwright projects (ui / api) with shared config.** The `playwright.config.ts` defines separate projects with different `baseURL` values (`/parabank` for UI, `/parabank/services/bank` for API). Tests run in parallel by default. Trade-off: API tests don't get a browser instance (lighter, faster), but if you needed to mix UI and API in one test you'd use `request` from the page context instead.
+**Two Playwright projects (ui / api) with shared config.** The `playwright.config.ts` defines separate projects with different `baseURL` values (`/parabank/` for UI, `/parabank/services/bank/` for API). Tests run in parallel by default. Trade-off: API tests don't get a browser instance (lighter, faster), but if you needed to mix UI and API in one test you'd use `request` from the page context instead.
 
 ## 2. Flakiness Prevention
 
@@ -14,6 +14,7 @@
 - **Unique test data per run.** `generateUniqueUser()` timestamps usernames and SSNs so parallel workers never collide on registration.
 - **Independent tests.** Each test logs in fresh — no shared state between tests. A failure in TC-04 doesn't cascade into TC-05.
 - **Resilient selectors.** Locators use `id`, `name`, `value` attributes and `getByText` — not CSS classes or XPath positions that break on styling changes.
+- **AJAX-aware assertions.** For pages with dynamic content (open account, transfer), we use `expect.poll()` and `waitForResponse()` instead of visibility checks that fail in headless CI.
 - **Retry on CI.** Config sets `retries: 2` in CI to absorb transient network issues with the shared ParaBank instance.
 
 ## 3. Scaling to 500 Tests
