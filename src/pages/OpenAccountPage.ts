@@ -24,11 +24,17 @@ export class OpenAccountPage {
 
   async openAccount() {
     await expect(this.openButton).toBeEnabled({ timeout: 10000 });
-    await this.openButton.click();
+    const [response] = await Promise.all([
+      this.page.waitForResponse(resp => resp.url().includes('createAccount') && resp.status() === 200, { timeout: 30000 }),
+      this.openButton.click(),
+    ]);
   }
 
   async expectSuccess(): Promise<string> {
-    await expect(this.page.locator('#newAccountId')).not.toBeEmpty({ timeout: 30000 });
+    await expect.poll(
+      async () => (await this.page.locator('#newAccountId').innerText()).trim(),
+      { timeout: 30000, intervals: [500, 1000, 2000] }
+    ).toBeTruthy();
     return (await this.page.locator('#newAccountId').innerText()).trim();
   }
 }
