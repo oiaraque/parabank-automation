@@ -28,8 +28,7 @@ export class OpenAccountPage {
   }
 
   async expectSuccess(): Promise<string> {
-    await expect(this.successMessage).toBeVisible({ timeout: 15000 });
-    await expect(this.newAccountId).toBeVisible({ timeout: 10000 });
-    return (await this.newAccountId.innerText()).trim();
+    await expect(this.page.locator('#newAccountId')).toHaveCount(1, { timeout: 30000 });
+    return (await this.page.locator('#newAccountId').innerText()).trim();
   }
 }

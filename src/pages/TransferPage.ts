@@ -26,9 +26,7 @@ export class TransferPage {
     await this.page.waitForLoadState('domcontentloaded');
   }
 
-  async expectSuccess(): Promise<string> {
-    await this.page.waitForURL('**/openaccount.htm', { timeout: 30000 });
-    await expect(this.page.locator('#newAccountId')).toHaveCount(1, { timeout: 15000 });
-    return (await this.page.locator('#newAccountId').innerText()).trim();
-  }
-}
+  async expectSuccess() {
+        await expect(this.page.getByRole('heading', { name: 'Transfer Complete!' })).toHaveCount(1, { timeout: 30000 });
+    }
+    }
