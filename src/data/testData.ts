@@ -12,7 +12,7 @@ export const users = {
     password: '',
   },
   specialChars: {
-    username: '<script>alert(1)</script>',
+    username: 'user@#$%&!',
     password: '!@#$%^&*()',
   },
 } as const;

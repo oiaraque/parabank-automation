@@ -18,7 +18,7 @@ export class LoginPage {
   }
 
   async goto() {
-    await this.page.goto('/index.htm');
+    await this.page.goto('index.htm');
     await expect(this.usernameInput).toBeVisible({ timeout: 15000 });
   }
 

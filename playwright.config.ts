@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const BASE_URL = process.env.BASE_URL || 'https://parabank.parasoft.com/parabank';
+const BASE_URL = process.env.BASE_URL || 'https://parabank.parasoft.com/parabank/';
 
 export default defineConfig({
   testDir: './tests',
@@ -35,7 +35,7 @@ export default defineConfig({
     {
       name: 'api',
       testDir: './tests/api',
-      use: { baseURL: `${BASE_URL}/services/bank/` },
+      use: { baseURL: `${BASE_URL}services/bank/` },
     },
   ],
   outputDir: './test-results',

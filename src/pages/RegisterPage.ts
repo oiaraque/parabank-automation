@@ -34,7 +34,7 @@ export class RegisterPage {
   }
 
   async goto() {
-    await this.page.goto('/register.htm');
+    await this.page.goto('register.htm');
     await expect(this.firstNameInput).toBeVisible({ timeout: 15000 });
   }
 

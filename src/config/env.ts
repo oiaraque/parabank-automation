@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const env = {
-  baseUrl: process.env.BASE_URL || 'https://parabank.parasoft.com/parabank',
+  baseUrl: process.env.BASE_URL || 'https://parabank.parasoft.com/parabank/',
   get apiBase() {
     return `${this.baseUrl}/services/bank`;
   },
