@@ -27,6 +27,6 @@ export class TransferPage {
   }
 
   async expectSuccess() {
-        await expect(this.page.getByRole('heading', { name: 'Transfer Complete!' })).toHaveCount(1, { timeout: 30000 });
-    }
-    }
+    await expect(this.page.locator('#showResult h1.title')).toContainText('Complete', { timeout: 30000 });
+  }
+}
